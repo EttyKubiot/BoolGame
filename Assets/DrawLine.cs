@@ -11,7 +11,7 @@ public class DrawLine : MonoBehaviour
     public Transform target;
     public Transform target2;
 
-    private bool isTrigger;
+    public bool isTrigger;
     private bool inTrigger;
     private int dot;
 
@@ -65,22 +65,32 @@ public class DrawLine : MonoBehaviour
       
             transform.position = mousePos;
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) )
             {
                 startMousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
+                Debug.Log("GetMouseButtonDown");
             }
 
 
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) )
             {
-
-                mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Debug.Log("GetMouseButton");
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+           
+               if ( isTrigger == true)
+               {
                 Line.SetPosition(0, new Vector3(startMousePos.x, startMousePos.y, 0f));
                 Line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
                 distance = (mousePos - startMousePos).magnitude;
                 inTrigger = true;
+               }
+              
             }
+
+        else
+        {
+            Debug.Log("GetMouseButton1111");
+        }
 
             Swipe();
 
