@@ -75,6 +75,7 @@ public class DrawLine : MonoBehaviour
 
             if (Input.GetMouseButton(0) )
             {
+
             Debug.Log("GetMouseButton");
             mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
            
@@ -93,10 +94,7 @@ public class DrawLine : MonoBehaviour
         //    Debug.Log("GetMouseButton1111");
         //}
 
-            Swipe();
-
-       
-
+         Swipe();
 
     }
 
