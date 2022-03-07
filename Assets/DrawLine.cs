@@ -12,7 +12,7 @@ public class DrawLine : MonoBehaviour
     public Transform target2;
 
     public bool isTrigger;
-    private bool inTrigger;
+    public bool inDrag;
     private int dot;
 
     private Vector2 mousePos;
@@ -28,7 +28,8 @@ public class DrawLine : MonoBehaviour
         Line = GetComponent<LineRenderer>();
         Line.positionCount = 2;
         isTrigger = false;
-        inTrigger = false;
+        inDrag = false;
+        firstPressPos = new Vector2(635f, 325f);
     }
 
 
@@ -40,24 +41,24 @@ public class DrawLine : MonoBehaviour
 
             Debug.Log("start");
             isTrigger = true;
-            //inTrigger = true;
+            inDrag = true;
 
         }
     }
-    //private void OnTriggerExit2D(Collider2D other)
-    //{
+    private void OnTriggerExit2D(Collider2D other)
+    {
 
-    //    if (other.gameObject.CompareTag("start"))
-    //    {
+        if (other.gameObject.CompareTag("start"))
+        {
 
-    //        Debug.Log("rrrrrrrrrrrrrrrrrr");
-    //        isTrigger = true;
-    //        inTrigger = false;
-    //    }
+            Debug.Log("rrrrrrrrrrrrrrrrrr");
+            isTrigger = true;
+            inDrag = false;
+        }
 
 
 
-    //}
+    }
 
 
     private void Update()
@@ -82,15 +83,15 @@ public class DrawLine : MonoBehaviour
                 Line.SetPosition(0, new Vector3(startMousePos.x, startMousePos.y, 0f));
                 Line.SetPosition(1, new Vector3(mousePos.x, mousePos.y, 0f));
                 distance = (mousePos - startMousePos).magnitude;
-                inTrigger = true;
+                inDrag = true;
                }
               
             }
 
-        else
-        {
-            Debug.Log("GetMouseButton1111");
-        }
+        //else
+        //{
+        //    Debug.Log("GetMouseButton1111");
+        //}
 
             Swipe();
 
@@ -104,7 +105,7 @@ public class DrawLine : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             Debug.Log("GetMouseButtonUp");
-            inTrigger = false;
+            inDrag = false;
         }
     }
 
@@ -123,7 +124,7 @@ public class DrawLine : MonoBehaviour
 
     public void Swipe()
     {
-        if (inTrigger)
+        if (inDrag)
         {
             if (Input.GetMouseButtonDown(0))
             {
